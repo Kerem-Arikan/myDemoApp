@@ -13,25 +13,32 @@ package myDemoApp;
 
   public class App
   {
-    public String getGreeting() {
-        return "Hello world.";
-    }
+    public static String findPrefix(ArrayList<String> mainList, ArrayList <String> prefix, int asked_num)
+    {
+      if(mainList.size() == 0 || prefix.size() == 0)
+        return "Either of word lists are empty.";
+      
 
-    public static boolean search(ArrayList<Integer> array, int e) {
-      System.out.println("inside search");
-      if (array == null) return false;
-
-      for (int elt : array) {
-        if (elt == e) return true;
+      Trie t = new Trie(30);
+      for(int i = 0 ; i < mainList.size() ; i++)
+        t.insertString(mainList.get(i));
+      
+      for(int i = 0 ; i < prefix.size() ; i++)
+      {
+        String pref = t.findPrefix(prefix.get(i));
+        if(pref.equals("\0"))
+          continue;
+        if(pref.length() == asked_num)
+          return pref;
       }
-      return false;
+      return "Required prefix cannot be found.";
     }
 
     public static void main(String[] args) {
 
         port(getHerokuAssignedPort());
 
-        get("/", (req, res) -> "Hello, World");
+        get("/", (req, res) -> "Prefix_Tester");
 
         post("/compute", (req, res) -> {
           //System.out.println(req.queryParams("input1"));
@@ -40,22 +47,32 @@ package myDemoApp;
           String input1 = req.queryParams("input1");
           java.util.Scanner sc1 = new java.util.Scanner(input1);
           sc1.useDelimiter("[;\r\n]+");
-          java.util.ArrayList<Integer> inputList = new java.util.ArrayList<>();
+          java.util.ArrayList<String> mainWordList = new java.util.ArrayList<String>();
           while (sc1.hasNext())
           {
-            int value = Integer.parseInt(sc1.next().replaceAll("\\s",""));
-            inputList.add(value);
+            String value = sc1.next().replaceAll("\\s","");
+            mainWordList.add(value);
           }
           sc1.close();
-          System.out.println(inputList);
+
+          String input2 = req.queryParams("input2");
+          java.util.Scanner sc2 = new java.util.Scanner(input2);
+          sc1.useDelimiter("[;\r\n]+");
+          java.util.ArrayList<String> prefixList = new java.util.ArrayList<String>();
+          while (sc1.hasNext())
+          {
+            String value = sc1.next().replaceAll("\\s","");
+            prefixList.add(value);
+          }
+          sc2.close();
 
 
-          String input2 = req.queryParams("input2").replaceAll("\\s","");
-          int input2AsInt = Integer.parseInt(input2);
+          String input3 = req.queryParams("input3").replaceAll("\\s","");
+          int prefixCount = Integer.parseInt(input3);
 
-          boolean result = App.search(inputList, input2AsInt);
+          String result = App.findPrefix(mainWordList, prefixList, prefixCount);
 
-          Map<String, Boolean> map = new HashMap<String, Boolean>();
+          Map<String, String> map = new HashMap<String, String>();
           map.put("result", result);
           return new ModelAndView(map, "compute.mustache");
         }, new MustacheTemplateEngine());
