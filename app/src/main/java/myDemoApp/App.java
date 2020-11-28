@@ -61,7 +61,7 @@ package myDemoApp;
           java.util.ArrayList<String> prefixList = new java.util.ArrayList<String>();
           while (sc2.hasNext())
           {
-            String value = sc1.next().replaceAll("\\s","");
+            String value = sc2.next().replaceAll("\\s","");
             prefixList.add(value);
           }
           sc2.close();
