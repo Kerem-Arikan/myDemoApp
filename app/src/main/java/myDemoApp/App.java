@@ -70,7 +70,7 @@ package myDemoApp;
           String input3 = req.queryParams("input3").replaceAll("\\s","");
           int prefixCount = Integer.parseInt(input3);
 
-          String result = App.findPrefix(mainWordList, prefixList, prefixCount);
+          String result = App.findPrefix(prefixList, mainWordList, prefixCount);
 
           Map<String, String> map = new HashMap<String, String>();
           map.put("result", result);
