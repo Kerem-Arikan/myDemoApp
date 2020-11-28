@@ -57,9 +57,9 @@ package myDemoApp;
 
           String input2 = req.queryParams("input2");
           java.util.Scanner sc2 = new java.util.Scanner(input2);
-          sc1.useDelimiter("[;\r\n]+");
+          sc2.useDelimiter("[;\r\n]+");
           java.util.ArrayList<String> prefixList = new java.util.ArrayList<String>();
-          while (sc1.hasNext())
+          while (sc2.hasNext())
           {
             String value = sc1.next().replaceAll("\\s","");
             prefixList.add(value);
