@@ -5,14 +5,22 @@
     fies the length of a prefix. To better understand the algorithm let's give an example:
 
 
-    <br>michael       |     semer       |   8
-    <br>aliye         |     ali         |
-    <br>semerkant     |     ka          |
-    <br>kara          |     w           |
-    <br>aurelianus    |     aurelian    |
-    <br>world         |     mi          |
-    
-    <br>In this particular example, the output will be "aurelian" where the first parsed prefix to have a length 
+    <br><br> Left text side array (full strings): <b> michael
+    aliye 
+    semerkant
+    kara     
+    aurelianus
+    world </b>
+
+     <br> Middle text side array (list of possible prefixes): <b>semer    
+ali      
+ka       
+w        
+aurelian 
+mi         </b> 
+     <br> Right text side (prefix size spesification):<b> 8 </b>
+     
+    <br><br>In this particular example, the output will be "aurelian" where the first parsed prefix to have a length 
     of 8 is "aurelian". On the other hand, if we have 5 instead of 8, we would have "semer" as output.
 
     Result is {{result}}
